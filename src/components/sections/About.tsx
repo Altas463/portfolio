@@ -1,102 +1,145 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { profile, principles, heroHighlights } from "../../data/content";
 
 const About = () => {
   return (
     <section
       id="about"
-      className="min-h-screen py-24 px-6 bg-gradient-to-b from-sky-50 via-white to-blue-50"
+      className="bg-white py-24"
     >
-      <div className="max-w-6xl mx-auto space-y-20">
-        {/* Title */}
+      <div className="mx-auto max-w-6xl px-6">
         <motion.div
-          className="text-center"
+          className="max-w-3xl space-y-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">
-            About Me
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600">
+            About
+          </span>
+          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
+            Building calm, resilient products with empathy and strong craft.
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            A developer passionate about building beautiful, useful, and real-world products.
+          <p className="text-lg leading-relaxed text-slate-600">
+            {profile.tagline}
           </p>
         </motion.div>
 
-        {/* Info Grid */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left - Intro */}
+        <div className="mt-16 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: -60 }}
+            className="space-y-8 rounded-3xl border border-slate-200 bg-slate-50 p-8"
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <p className="text-lg text-gray-800 leading-relaxed">
-              I’m a web developer with a clear orientation toward building{" "}
-              <span className="font-semibold text-blue-600">modern applications</span> and{" "}
-              <span className="font-semibold text-emerald-600">great user experiences</span>.
-              I especially love frontend, while also having solid backend experience.
-            </p>
-            <p className="text-lg text-gray-800 leading-relaxed">
-              With skills ranging from{" "}
-              <span className="font-medium text-purple-600">React / Next.js</span> to{" "}
-              <span className="font-medium text-orange-500">Node.js / PostgreSQL</span>,
-              I’m always learning and evolving to deliver meaningful products.
-            </p>
-            <p className="text-lg text-gray-800 leading-relaxed">
-              Working with me, you’ll find someone who is{" "}
-              <span className="italic text-gray-700">meticulous, logical, and highly responsible</span>.
-            </p>
+            <div className="space-y-4 text-slate-700">
+              <p className="text-lg leading-relaxed">
+                {profile.summary}
+              </p>
+              <p className="text-sm leading-relaxed text-slate-500">
+                My background spans frontend craft, backend integrations, and supportive stakeholder communication. I am happiest when collaborating with product, design, and data teams to ship ideas that matter.
+              </p>
+            </div>
+
+            <div className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6">
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Focus areas
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {heroHighlights.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-slate-200 bg-slate-100 px-4 py-1 text-sm text-slate-700"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                <p className="text-xs uppercase tracking-wide text-slate-400">
+                  Location
+                </p>
+                <p className="mt-1 font-semibold text-slate-700">
+                  {profile.location}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                <p className="text-xs uppercase tracking-wide text-slate-400">
+                  Collaboration style
+                </p>
+                <p className="mt-1 font-semibold text-slate-700">
+                  Calm, transparent, outcomes-driven
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 text-sm text-slate-600">
+              {profile.socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 transition hover:border-slate-400 hover:text-slate-900"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    {social.label}
+                  </span>
+                  <span className="font-medium">{social.handle}</span>
+                </a>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Right - Highlight Card */}
           <motion.div
-            className="relative bg-white border border-gray-200 rounded-3xl p-8 shadow-xl overflow-hidden"
-            initial={{ opacity: 0, x: 60 }}
+            className="space-y-6"
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="absolute -top-10 -right-10 w-44 h-44 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full opacity-30 blur-3xl pointer-events-none" />
-            <div className="relative z-10 space-y-4">
-              <h3 className="text-xl font-semibold text-gray-800">
-                Things I'm proud of:
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900">
+                Working principles
               </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>🚀 Built a full-stack personal project from scratch (Next.js)</li>
-                <li>🎨 Focused on minimalistic, clear, and user-friendly UX</li>
-                <li>🛠️ Proficient in Git, RESTful APIs, databases, and basic security</li>
-                <li>📚 Constantly learning and optimizing code every day</li>
-              </ul>
-              <p className="pt-4 text-sm text-gray-500">
-                "I don't just write code—I strive to create real value."
+              <p className="mt-2 text-sm text-slate-500">
+                Each project is guided by a few non-negotiables that keep delivery sharp and thoughtful.
               </p>
+              <div className="mt-6 space-y-6">
+                {principles.map((principle) => (
+                  <div key={principle.title} className="space-y-2">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+                      {principle.title}
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      {principle.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8">
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Availability
+              </p>
+              <p className="mt-3 text-lg font-semibold text-slate-800">
+                Open to full-time opportunities and select freelance collaborations.
+              </p>
+              <a
+                href="#contact"
+                className="mt-5 inline-flex items-center justify-center rounded-full border border-slate-900 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-900 hover:text-white"
+              >
+                Let us collaborate
+              </a>
             </div>
           </motion.div>
         </div>
-
-        {/* Call to Action */}
-        <motion.div
-          className="text-center space-y-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-700 text-lg">
-            If you're looking for a responsible, proactive, and creative developer...
-          </p>
-          <a
-            href="mailto:atu3012@gmail.com"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-base px-6 py-3 rounded-xl transition duration-300 shadow-md"
-          >
-            Contact Me
-          </a>
-        </motion.div>
       </div>
     </section>
   );

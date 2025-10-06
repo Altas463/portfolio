@@ -1,118 +1,76 @@
 "use client";
 
-import { useRef, useState } from "react";
-import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { contact, profile } from "../../data/content";
 
 const Contact = () => {
-  const form = useRef<HTMLFormElement>(null);
-  const [isSent, setIsSent] = useState(false);
-
-  const sendEmail = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!form.current) return;
-
-    emailjs
-      .sendForm(
-        "your_service_id", // thay bằng ID thực tế
-        "your_template_id", // thay bằng ID thực tế
-        form.current,
-        "your_user_id" // thay bằng public key từ EmailJS dashboard
-      )
-      .then(
-        () => {
-          setIsSent(true);
-          form.current?.reset();
-        },
-        (error) => {
-          console.error(error.text);
-        }
-      );
-  };
-
   return (
     <section
       id="contact"
-      className="py-20 bg-gradient-to-b from-white to-sky-50 px-6"
+      className="relative overflow-hidden bg-slate-950 py-24 text-slate-100"
     >
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/2 top-10 h-80 w-80 -translate-x-1/2 rounded-full bg-sky-500/40 blur-[120px]" />
+        <div className="absolute bottom-10 right-20 h-64 w-64 rounded-full bg-indigo-500/40 blur-[100px]" />
+      </div>
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div
+          className="rounded-[2.5rem] border border-white/10 bg-white/5 p-12 text-center backdrop-blur"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
-          Contact Me
-        </motion.h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-300">
+            Contact
+          </p>
+          <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">
+            {contact.headline}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-slate-200">
+            {contact.subheadline}
+          </p>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Info */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-4">
-              <Phone className="text-blue-600 w-6 h-6" />
-              <span className="text-gray-700 text-lg">0329 265 343</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Mail className="text-blue-600 w-6 h-6" />
-              <span className="text-gray-700 text-lg">atu3012@gmail.com</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <MapPin className="text-blue-600 w-6 h-6" />
-              <span className="text-gray-700 text-lg">District 10, Ho Chi Minh City</span>
-            </div>
-          </motion.div>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            {contact.actions.map((action, index) => {
+              const isPrimary = index === 0;
+              const isDownload = action.url.endsWith(".pdf");
 
-          {/* Contact Form */}
-          <motion.form
-            ref={form}
-            onSubmit={sendEmail}
-            className="space-y-4"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <input
-              type="text"
-              name="user_name"
-              placeholder="Your Name"
-              required
-              className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="email"
-              name="user_email"
-              placeholder="Your Email"
-              required
-              className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <textarea
-              name="message"
-              rows={5}
-              placeholder="Your Message"
-              required
-              className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+              return (
+                <a
+                  key={action.label}
+                  href={action.url}
+                  className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
+                    isPrimary
+                      ? "border border-white/10 bg-sky-400 text-slate-950 hover:bg-sky-300"
+                      : "border border-white/30 text-slate-100 hover:border-white/60"
+                  }`}
+                  download={isDownload ? "" : undefined}
+                >
+                  {action.label}
+                </a>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-200">
+            <a
+              href={`mailto:${profile.email}`}
+              className="underline-offset-4 hover:underline"
             >
-              Send Message
-            </button>
-
-            {isSent && (
-              <p className="text-green-600 text-sm mt-2">Message sent successfully!</p>
-            )}
-          </motion.form>
-        </div>
+              {profile.email}
+            </a>
+            <span className="hidden h-4 w-px bg-white/20 sm:block" />
+            <a
+              href={`tel:${profile.phone.split(" ").join("")}`}
+              className="underline-offset-4 hover:underline"
+            >
+              {profile.phone}
+            </a>
+            <span className="hidden h-4 w-px bg-white/20 sm:block" />
+            <span>{profile.location}</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
