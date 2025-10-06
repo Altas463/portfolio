@@ -1,7 +1,7 @@
 import dailyFocusPreview from "../assets/dailyfocus-preview.png";
 
 export const profile = {
-  name: "Tuc Pham",
+  name: "Tu Pham",
   role: "Full-stack Developer",
   tagline: "I build calm, resilient web apps that feel effortless to use.",
   summary:
